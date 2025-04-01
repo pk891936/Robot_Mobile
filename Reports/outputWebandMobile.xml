@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.7.4 on win32)" generated="20250325 15:26:25.805" rpa="false" schemaversion="4">
+<suite id="s1" name="testWebAndMobile" source="C:\Users\ckumar2\PycharmProjects\RobotAPI\Automation\TestCases\testWebAndMobile.robot">
+<test id="s1-t1" name="Test to initiate web and mobile app verification" line="25">
+<kw name="Open Browser" library="SeleniumLibrary">
+<var>${webapp}</var>
+<arg>https://testux.securewebserv.com/signin</arg>
+<arg>browser=Chrome</arg>
+<arg>executable_path=C:/Users/ckumar2/PycharmProjects/RobotAPI/Automation/Drivers/chromedriver.exe</arg>
+<arg>alias=WebApp</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20250325 15:26:26.123" level="INFO">Opening browser 'Chrome' to base url 'https://testux.securewebserv.com/signin'.</msg>
+<msg timestamp="20250325 15:26:32.651" level="INFO">${webapp} = 1</msg>
+<status status="PASS" starttime="20250325 15:26:26.123" endtime="20250325 15:26:32.651"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20250325 15:26:32.651" endtime="20250325 15:26:32.677"/>
+</kw>
+<kw name="Check and Install Application">
+<arg>${SMA_APP_apk}</arg>
+<arg>${package_SMA}</arg>
+<doc>This keyword checks and install the app if it is not already installed</doc>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>start-server</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:32.677" level="INFO">Starting process:
+adb start-server</msg>
+<msg timestamp="20250325 15:26:32.693" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:32.751" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:32.677" endtime="20250325 15:26:32.751"/>
+</kw>
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>adb</arg>
+<arg>shell</arg>
+<arg>pm list packages</arg>
+<arg>stdout=stdout.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:32.751" level="INFO">Starting process:
+adb shell "pm list packages"</msg>
+<msg timestamp="20250325 15:26:32.757" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:32.874" level="INFO">Process completed.</msg>
+<msg timestamp="20250325 15:26:32.875" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20250325 15:26:32.751" endtime="20250325 15:26:32.875"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${packages_list}</var>
+<arg>${result.stdout}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250325 15:26:32.878" level="INFO">${packages_list} = package:com.google.audio.hearing.visualization.accessibility.scribe
+package:com.android.companiondevicemanager.auto_generated_characteristics_rro
+package:com.android.systemui.auto_generated_rro_vendor...</msg>
+<status status="PASS" starttime="20250325 15:26:32.875" endtime="20250325 15:26:32.878"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${packages_list}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:26:32.878" endtime="20250325 15:26:32.899"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${app_installed}</var>
+<arg>Should Contain</arg>
+<arg>${packages_list}</arg>
+<arg>${appPackage}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${packages_list}</arg>
+<arg>${appPackage}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20250325 15:26:32.901" level="FAIL">'package:com.google.audio.hearing.visualization.accessibility.scribe
+package:com.android.companiondevicemanager.auto_generated_characteristics_rro
+package:com.android.systemui.auto_generated_rro_vendor__
+package:com.google.android.providers.media.module
+package:com.google.android.overlay.permissioncontroller
+package:com.google.android.overlay.googlewebview
+package:com.android.devicediagnostics.auto_generated_rro_vendor__
+package:com.android.calllogbackup
+package:com.android.omadm.service
+package:io.appium.uiautomator2.server
+package:com.google.android.microdroid.empty_payload
+package:com.android.systemui.accessibility.accessibilitymenu
+package:com.android.providers.contacts
+package:com.google.android.apps.nbu.files
+package:com.allegion.stingray.pilot
+package:com.android.dreams.basic
+package:com.android.companiondevicemanager
+package:com.android.cts.priv.ctsshim
+package:com.allegion.schlagemobileaccess.beta
+package:com.google.android.calendar
+package:com.google.android.contacts
+package:com.android.mms.service
+package:com.google.android.cellbroadcastreceiver
+package:com.android.providers.downloads
+package:com.android.bluetoothmidiservice
+package:com.android.credentialmanager
+package:com.google.android.apps.wallpaper.pixel
+package:com.google.android.photopicker
+package:com.android.networkstack.overlay
+package:com.google.android.euiccoverlay
+package:io.appium.settings
+package:com.google.android.printservice.recommendation
+package:com.android.systemui.clocks.flex
+package:com.google.android.captiveportallogin
+package:com.google.android.networkstack
+package:com.android.captiveportallogin.overlay
+package:com.google.android.telephony
+package:com.google.android.overlay.googleconfig
+package:com.android.keychain
+package:com.google.android.hardwareinfo
+package:com.google.android.accessibility.switchaccess
+package:com.google.android.tag
+package:com.allegion.stingray.integration
+package:com.koushikdutta.vysor
+package:android.auto_generated_rro_vendor__
+package:com.android.devicediagnostics.auto_generated_rro_product__
+package:com.google.android.dreamlinerupdater
+package:com.google.android.apps.wellbeing
+package:com.google.android.apps.emojiwallpaper
+package:com.android.nfc.auto_generated_rro_product__
+package:com.android.healthconnect.overlay
+package:com.android.shell
+package:com.google.android.adservices.api
+package:com.google.android.wifi.dialog
+package:com.google.android.systemui.overlay.pixelvpnconfig
+package:com.android.inputdevices
+package:com.google.android.networkstack.tethering.overlay2021
+package:com.google.android.appsearch.apk
+package:com.google.android.ondevicepersonalization.services
+package:com.android.nfc.overlay.common
+package:com.google.euiccpixel
+package:com.google.android.apps.customization.pixel
+package:com.android.bookmarkprovider
+package:com.google.android.rilextension
+package:com.google.android.apps.tips
+package:com.google.android.onetimeinitializer
+package:com.google.android.permissioncontroller
+package:com.allegion.stingray
+package:com.android.DeviceAsWebcam
+package:com.android.sharedstoragebackup
+package:com.google.android.apps.cbrsnetworkmonitor
+package:com.android.imsserviceentitlement
+package:com.android.providers.media
+package:com.android.providers.calendar
+package:com.android.providers.blockednumber
+package:com.google.android.documentsui
+package:com.google.android.apps.internal.betterbug
+package:com.google.android.keep
+package:com.android.systemui.clocks.metro
+package:com.google.android.devicelockcontroller
+package:com.google.android.safetycore
+package:com.android.proxyhandler
+package:com.android.settings.overlay.pixel2021andnewer
+package:com.allegion.schlagemobileaccess.test
+package:com.android.managedprovisioning
+package:com.cloudflare.cloudflareoneagent
+package:com.android.emergency
+package:com.google.android.gms.location.history
+package:com.google.android.apps.aiwallpapers
+package:com.android.omadm.service.auto_generated_rro_vendor__
+package:com.google.android.storagemanager.auto_generated_rro_vendor__
+package:com.google.android.gm
+package:com.android.carrierdefaultapp
+package:com.android.backupconfirm
+package:com.google.android.apps.tachyon
+package:com.google.android.flipendo
+package:com.google.android.hotspot2.osulogin
+package:com.android.nfc
+package:com.google.android.deskclock
+package:com.android.mtp
+package:com.google.android.gsf
+package:com.google.android.apps.accessibility.voiceaccess
+package:com.google.android.overlay.pixelconfigcommon
+package:com.google.android.apps.privacy.wildlife
+package:com.google.android.carrierlocation
+package:com.android.phone.auto_generated_characteristics_rro
+package:com.google.android.apps.magazines
+package:com.google.pixel.livewallpaper
+package:com.android.internal.display.cutout.emulation.double
+package:com.android.theme.font.notoserifsource
+package:com.google.android.wallpaper.effects
+package:com.android.pixeldisplayservice.auto_generated_rro_product__
+package:com.android.traceur.auto_generated_rro_product__
+package:com.google.android.health.connect.backuprestore
+package:com.android.cellbroadcastreceiver.overlay.pixel
+package:com.android.systemui.clocks.bignum
+package:com.google.SSRestartDetector
+package:com.google.android.settings.intelligence
+package:android.autoinstalls.config.google.nexus
+package:com.android.systemui.clocks.weather
+package:com.android.managedprovisioning.overlay
+package:com.android.systemui
+package:com.google.ar.core
+package:com.vzw.apnlib
+package:com.android.providers.contacts.auto_generated_rro_product__
+package:com.google.android.dialer
+package:com.google.android.flipendo.auto_generated_rro_vendor__
+package:com.samsung.slsi.telephony.oem.oemrilhookservice
+package:com.google.android.grilservice
+package:com.verizon.mips.services
+package:com.android.internal.systemui.navbar.gestural
+package:com.android.role.notes.enabled
+package:com.google.android.apps.nexuslauncher
+package:com.google.android.overlay.pixelconfig2021
+package:com.google.android.settings.overlay.pixelvpnconfig
+package:com.google.android.apps.translate
+package:com.shannon.imsservice
+package:com.google.mainline.adservices
+package:com.google.android.calculator
+package:com.allegion.stingray.qa
+package:com.android.devicediagnostics
+package:com.android.internal.display.cutout.emulation.avoidAppsInCutout
+package:com.android.hotwordenrollment.okgoogle
+package:com.google.euiccpixel.overlay.zuma
+package:com.android.qns
+package:com.google.android.factoryota
+package:com.google.android.apps.wallpaper
+package:com.google.android.federatedcompute
+package:com.android.systemui.clocks.numoverlap
+package:com.temporary.sms.number
+package:com.google.android.webview
+package:com.google.android.sdksandbox
+package:com.google.android.storagemanager
+package:com.android.wallpaperbackup
+package:com.google.android.cellbroadcastservice
+package:com.android.sdm.plugins.diagmon
+package:com.verizon.services
+package:com.android.internal.systemui.navbar.threebutton
+package:com.android.egg
+package:com.android.localtransport
+package:com.allegion.pureaccess.mfr
+package:android
+package:com.google.android.overlay.pixelconfig2019
+package:com.google.android.pixelsystemservice
+package:com.google.android.overlay.pixelconfig2018
+package:com.google.android.virtualmachine.res
+package:com.android.settings.shiba
+package:com.google.android.pixelnfc
+package:com.android.providers.settings.auto_generated_rro_product__
+package:com.android.hotwordenrollment.xgoogle
+package:com.google.android.soundpicker
+package:com.android.settings.auto_generated_rro_vendor__
+package:com.android.internal.display.cutout.emulation.noCutout
+package:com.google.android.packageinstaller
+package:com.android.se
+package:com.android.pacprocessor
+package:com.coffye.mstome
+package:com.android.providers.media.overlay.pixel
+package:com.google.android.tetheringentitlement
+package:com.google.android.safetycenter.resources
+package:com.google.android.settings.future.biometrics.faceenroll
+package:com.google.android.apps.youtube.music
+package:com.android.stk
+package:com.android.internal.display.cutout.emulation.hole
+package:com.android.settings
+package:com.android.bips
+package:com.google.android.partnersetup
+package:com.android.internal.systemui.navbar.gestural_narrow_back
+package:com.android.internal.display.cutout.emulation.tall
+package:com.google.android.networkstack.tethering
+package:com.google.android.apps.gcs
+package:com.android.sdm.plugins.connmo
+package:com.google.android.projection.gearhead
+package:com.android.cameraextensions
+package:com.android.safetyregulatoryinfo
+package:com.google.android.odad
+package:com.android.internal.systemui.navbar.gestural_wide_back
+package:com.allegion.accesssdk
+package:com.google.android.apps.carrier.carrierwifi
+package:com.android.traceur.auto_generated_rro_vendor__
+package:com.shannon.rcsservice
+package:com.google.android.videos
+package:com.google.android.ext.shared
+package:com.google.android.feedback
+package:com.fitbit.FitbitMobile
+package:com.android.chrome
+package:com.google.android.overlay.trafficlightfaceoverlay
+package:com.google.android.apps.maps
+package:com.google.android.apps.camera.services
+package:com.google.android.apps.nbu.paisa.user
+package:com.google.android.apps.chromecast.app
+package:com.google.android.wifi.resources.pixel
+package:com.google.android.as
+package:android.auto_generated_rro_product__
+package:com.android.musicfx
+package:android.auto_generated_characteristics_rro
+package:com.android.internal.systemui.navbar.transparent
+package:com.android.server.telecom.auto_generated_rro_product__
+package:com.google.android.inputmethod.latin
+package:com.google.android.accessibility.soundamplifier
+package:com.allegionengage.dcs.quickstart
+package:com.google.android.apps.carrier.log
+package:com.google.android.apps.weather
+package:com.google.android.overlay.udfpsoverlay
+package:com.google.android.marvin.talkback
+package:com.google.android.systemui.gxoverlay
+package:com.android.nfc.overlay
+package:com.google.android.uwb.resources
+package:com.android.providers.downloads.ui
+package:com.google.android.wifi.resources
+package:com.android.ons
+package:com.google.android.GoogleCamera
+package:com.google.android.healthconnect.controller
+package:com.android.intentresolver
+package:com.google.android.apps.docs
+package:com.google.android.contactkeys
+package:com.android.phone.auto_generated_rro_vendor__
+package:com.android.certinstaller
+package:com.google.android.setupwizard
+package:com.google.android.apps.safetyhub
+package:com.google.android.apps.retaildemo.preload
+package:com.google.android.apps.recorder
+package:com.google.android.apps.restore
+package:com.google.android.systemui.overlay.pixelbatteryhealthconfig
+package:com.android.systemui.clocks.growth
+package:com.android.simappdialog
+package:com.android.providers.telephony
+package:com.android.wallpaper.livepicker
+package:com.google.android.carriersetup
+package:com.android.systemui.clocks.calligraphy
+package:com.google.android.apps.pixel.dcservice
+package:com.google.android.uvexposurereporter
+package:io.appium.uiautomator2.server.test
+package:com.google.android.connectivity.resources.overlay
+package:com.android.internal.display.cutout.emulation.waterfall
+package:com.android.settings.auto_generated_rro_product__
+package:com.google.android.rkpdapp
+package:com.wt.apkinfo
+package:com.android.providers.settings
+package:com.google.android.pixel.setupwizard
+package:com.android.phone
+package:com.android.internal.systemui.navbar.gestural_extra_wide_back
+package:com.google.android.apps.subscriptions.red
+package:com.google.android.overlay.pixelconfig2019midyear
+package:com.google.android.flipendo.auto_generated_rro_product__
+package:com.google.android.apps.work.oobconfig
+package:com.android.traceur
+package:com.android.systemui.clocks.inflate
+package:com.google.android.as.oss
+package:com.google.android.apps.messaging
+package:com.google.android.apps.diagnosticstool
+package:com.google.android.repairmode
+package:com.google.android.apps.wearables.maestro.companion
+package:com.android.location.fused
+package:com.android.vpndialogs
+package:com.samsung.slsi.telephony.oemril
+package:com.android.cellbroadcastreceiver
+package:com.android.systemui.plugin.globalactions.wallet
+package:com.google.android.apps.docs.editors.docs
+package:com.google.android.tts
+package:com.google.android.googlequicksearchbox
+package:com.google.android.turboadapter
+package:com.google.android.modulemetadata
+package:com.google.RilConfigService
+package:com.android.phone.auto_generated_rro_product__
+package:com.google.android.documentsui.theme.pixel
+package:com.google.android.apps.work.clouddpc
+package:com.android.systemui.accessibility.accessibilitymenu.auto_generated_rro_product__
+package:com.android.htmlviewer
+package:com.android.vending
+package:com.google.omadm.trigger
+package:com.android.omadm.service.auto_generated_rro_product__
+package:com.google.euiccpixel.permissions
+package:com.google.android.ext.services
+package:com.google.android.configupdater
+package:com.android.sdm.plugins.dcmo
+package:com.google.android.apps.turbo
+package:com.google.android.compos.payload
+package:com.google.android.aicore
+package:com.verizon.llkagent
+package:com.google.android.gms.supervision
+package:com.android.providers.userdictionary
+package:com.android.providers.contactkeys
+package:com.google.android.server.deviceconfig.resources
+package:com.google.android.apps.wear.companion
+package:com.android.cts.ctsshim
+package:com.google.android.apps.photos
+package:com.android.bluetooth
+package:com.android.cellbroadcastservice.overlay.pixel
+package:com.google.android.markup
+package:com.google.android.apps.scone
+package:com.google.android.apps.helprtc
+package:com.google.android.wfcactivation
+package:com.android.settings.overlay.shiba
+package:com.google.android.connectivitythermalpowermanager
+package:com.android.internal.display.cutout.emulation.corner
+package:com.google.android.gms
+package:com.customermobile.preload.vzw
+package:com.android.printspooler
+package:com.android.pixeldisplayservice
+package:com.android.systemui.auto_generated_rro_product__
+package:com.google.android.apps.dreamliner
+package:com.google.android.storagemanager.auto_generated_rro_product__
+package:com.google.android.apps.setupwizard.searchselector
+package:com.android.providers.partnerbookmarks
+package:com.android.soundpicker
+package:com.google.pixel.camera.services
+package:com.google.mainline.telemetry
+package:com.google.android.apps.pixel.support
+package:com.google.ambient.streaming
+package:com.google.android.euicc
+package:com.google.android.googlequicksearchbox.nga_resources
+package:com.google.android.carrier
+package:com.android.dynsystem
+package:com.android.angle
+package:com.android.providers.telephony.auto_generated_characteristics_rro
+package:com.google.android.bluetooth
+package:com.google.android.iwlan
+package:com.android.safetyregulatoryinfo.auto_generated_rro_product__
+package:com.android.providers.telephony.auto_generated_rro_product__
+package:com.google.android.overlay.devicelockcontroller
+package:com.android.nfc.auto_generated_rro_vendor__
+package:com.google.android.connectivity.resources
+package:com.android.bips.auto_generated_rro_product__
+package:com.google.android.youtube
+package:com.android.simappdialog.auto_generated_rro_product__
+package:com.android.telephony.imsmedia
+package:com.android.externalstorage
+package:com.android.server.telecom' does not contain 'com.allegion.sdkdemo'</msg>
+<status status="FAIL" starttime="20250325 15:26:32.900" endtime="20250325 15:26:32.903"/>
+</kw>
+<msg timestamp="20250325 15:26:32.903" level="INFO">${app_installed} = False</msg>
+<status status="PASS" starttime="20250325 15:26:32.899" endtime="20250325 15:26:32.903"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>App Status: ${app_installed}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:26:32.903" endtime="20250325 15:26:32.905"/>
+</kw>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>start-server</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:32.905" level="INFO">Starting process:
+adb start-server</msg>
+<msg timestamp="20250325 15:26:32.924" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:32.981" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:32.905" endtime="20250325 15:26:32.981"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Run Process</arg>
+<arg>adb</arg>
+<arg>install</arg>
+<arg>${apk_path}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>install</arg>
+<arg>${apk_path}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:32.981" level="INFO">Starting process:
+adb install C:/Users/ckumar2/PycharmProjects/RobotAPI/Automation/APKs/app-debug.apk</msg>
+<msg timestamp="20250325 15:26:32.997" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:35.049" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:32.981" endtime="20250325 15:26:35.049"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:32.981" endtime="20250325 15:26:35.049"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Sleep</arg>
+<arg>10</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Sleep" library="BuiltIn">
+<arg>10</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250325 15:26:45.052" level="INFO">Slept 10 seconds</msg>
+<status status="PASS" starttime="20250325 15:26:35.049" endtime="20250325 15:26:45.052"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:35.049" endtime="20250325 15:26:45.052"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Log To Console</arg>
+<arg>App Installed Successfully</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Log To Console" library="BuiltIn">
+<arg>App Installed Successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:26:45.052" endtime="20250325 15:26:45.052"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:45.052" endtime="20250325 15:26:45.052"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:32.677" endtime="20250325 15:26:45.052"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>${APPIUM SERVER URL}</arg>
+<arg>alias=QSA</arg>
+<arg>automationName=${ANDROID_AUTOMATION_NAME}</arg>
+<arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>appPackage=${package_SMA}</arg>
+<arg>appActivity=${package_SMA}.MainActivity</arg>
+<arg>appWaitActivity=*</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://appium.io/docs/en/2.1/cli/args/
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20250325 15:26:45.052" endtime="20250325 15:26:54.370"/>
+</kw>
+<kw name="Check and Install Application">
+<arg>${DCS_APP_apk}</arg>
+<arg>${package_DCS}</arg>
+<doc>This keyword checks and install the app if it is not already installed</doc>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>start-server</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:54.370" level="INFO">Starting process:
+adb start-server</msg>
+<msg timestamp="20250325 15:26:54.387" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:54.418" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:54.370" endtime="20250325 15:26:54.418"/>
+</kw>
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>adb</arg>
+<arg>shell</arg>
+<arg>pm list packages</arg>
+<arg>stdout=stdout.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:54.418" level="INFO">Starting process:
+adb shell "pm list packages"</msg>
+<msg timestamp="20250325 15:26:54.434" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:54.544" level="INFO">Process completed.</msg>
+<msg timestamp="20250325 15:26:54.544" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20250325 15:26:54.418" endtime="20250325 15:26:54.544"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${packages_list}</var>
+<arg>${result.stdout}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250325 15:26:54.560" level="INFO">${packages_list} = package:com.google.audio.hearing.visualization.accessibility.scribe
+package:com.android.companiondevicemanager.auto_generated_characteristics_rro
+package:com.android.systemui.auto_generated_rro_vendor...</msg>
+<status status="PASS" starttime="20250325 15:26:54.544" endtime="20250325 15:26:54.560"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${packages_list}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:26:54.561" endtime="20250325 15:26:54.575"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${app_installed}</var>
+<arg>Should Contain</arg>
+<arg>${packages_list}</arg>
+<arg>${appPackage}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${packages_list}</arg>
+<arg>${appPackage}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20250325 15:26:54.575" level="FAIL">'package:com.google.audio.hearing.visualization.accessibility.scribe
+package:com.android.companiondevicemanager.auto_generated_characteristics_rro
+package:com.android.systemui.auto_generated_rro_vendor__
+package:com.google.android.providers.media.module
+package:com.google.android.overlay.permissioncontroller
+package:com.google.android.overlay.googlewebview
+package:com.android.devicediagnostics.auto_generated_rro_vendor__
+package:com.android.calllogbackup
+package:com.android.omadm.service
+package:io.appium.uiautomator2.server
+package:com.google.android.microdroid.empty_payload
+package:com.android.systemui.accessibility.accessibilitymenu
+package:com.android.providers.contacts
+package:com.google.android.apps.nbu.files
+package:com.allegion.stingray.pilot
+package:com.android.dreams.basic
+package:com.android.companiondevicemanager
+package:com.android.cts.priv.ctsshim
+package:com.allegion.schlagemobileaccess.beta
+package:com.google.android.calendar
+package:com.google.android.contacts
+package:com.android.mms.service
+package:com.google.android.cellbroadcastreceiver
+package:com.android.providers.downloads
+package:com.android.bluetoothmidiservice
+package:com.android.credentialmanager
+package:com.google.android.apps.wallpaper.pixel
+package:com.google.android.photopicker
+package:com.android.networkstack.overlay
+package:com.google.android.euiccoverlay
+package:io.appium.settings
+package:com.google.android.printservice.recommendation
+package:com.android.systemui.clocks.flex
+package:com.google.android.captiveportallogin
+package:com.google.android.networkstack
+package:com.android.captiveportallogin.overlay
+package:com.google.android.telephony
+package:com.google.android.overlay.googleconfig
+package:com.android.keychain
+package:com.google.android.hardwareinfo
+package:com.google.android.accessibility.switchaccess
+package:com.google.android.tag
+package:com.allegion.stingray.integration
+package:com.koushikdutta.vysor
+package:android.auto_generated_rro_vendor__
+package:com.android.devicediagnostics.auto_generated_rro_product__
+package:com.google.android.dreamlinerupdater
+package:com.google.android.apps.wellbeing
+package:com.google.android.apps.emojiwallpaper
+package:com.android.nfc.auto_generated_rro_product__
+package:com.android.healthconnect.overlay
+package:com.android.shell
+package:com.google.android.adservices.api
+package:com.google.android.wifi.dialog
+package:com.google.android.systemui.overlay.pixelvpnconfig
+package:com.android.inputdevices
+package:com.google.android.networkstack.tethering.overlay2021
+package:com.google.android.appsearch.apk
+package:com.google.android.ondevicepersonalization.services
+package:com.android.nfc.overlay.common
+package:com.google.euiccpixel
+package:com.google.android.apps.customization.pixel
+package:com.android.bookmarkprovider
+package:com.google.android.rilextension
+package:com.google.android.apps.tips
+package:com.google.android.onetimeinitializer
+package:com.google.android.permissioncontroller
+package:com.allegion.stingray
+package:com.android.DeviceAsWebcam
+package:com.android.sharedstoragebackup
+package:com.google.android.apps.cbrsnetworkmonitor
+package:com.android.imsserviceentitlement
+package:com.android.providers.media
+package:com.android.providers.calendar
+package:com.android.providers.blockednumber
+package:com.google.android.documentsui
+package:com.google.android.apps.internal.betterbug
+package:com.google.android.keep
+package:com.android.systemui.clocks.metro
+package:com.google.android.devicelockcontroller
+package:com.google.android.safetycore
+package:com.android.proxyhandler
+package:com.android.settings.overlay.pixel2021andnewer
+package:com.allegion.schlagemobileaccess.test
+package:com.android.managedprovisioning
+package:com.cloudflare.cloudflareoneagent
+package:com.android.emergency
+package:com.google.android.gms.location.history
+package:com.google.android.apps.aiwallpapers
+package:com.android.omadm.service.auto_generated_rro_vendor__
+package:com.google.android.storagemanager.auto_generated_rro_vendor__
+package:com.google.android.gm
+package:com.android.carrierdefaultapp
+package:com.android.backupconfirm
+package:com.google.android.apps.tachyon
+package:com.google.android.flipendo
+package:com.google.android.hotspot2.osulogin
+package:com.android.nfc
+package:com.google.android.deskclock
+package:com.android.mtp
+package:com.google.android.gsf
+package:com.google.android.apps.accessibility.voiceaccess
+package:com.google.android.overlay.pixelconfigcommon
+package:com.google.android.apps.privacy.wildlife
+package:com.google.android.carrierlocation
+package:com.android.phone.auto_generated_characteristics_rro
+package:com.google.android.apps.magazines
+package:com.google.pixel.livewallpaper
+package:com.android.internal.display.cutout.emulation.double
+package:com.android.theme.font.notoserifsource
+package:com.google.android.wallpaper.effects
+package:com.android.pixeldisplayservice.auto_generated_rro_product__
+package:com.android.traceur.auto_generated_rro_product__
+package:com.google.android.health.connect.backuprestore
+package:com.android.cellbroadcastreceiver.overlay.pixel
+package:com.android.systemui.clocks.bignum
+package:com.google.SSRestartDetector
+package:com.google.android.settings.intelligence
+package:android.autoinstalls.config.google.nexus
+package:com.android.systemui.clocks.weather
+package:com.android.managedprovisioning.overlay
+package:com.android.systemui
+package:com.google.ar.core
+package:com.vzw.apnlib
+package:com.android.providers.contacts.auto_generated_rro_product__
+package:com.google.android.dialer
+package:com.google.android.flipendo.auto_generated_rro_vendor__
+package:com.samsung.slsi.telephony.oem.oemrilhookservice
+package:com.google.android.grilservice
+package:com.verizon.mips.services
+package:com.android.internal.systemui.navbar.gestural
+package:com.android.role.notes.enabled
+package:com.google.android.apps.nexuslauncher
+package:com.google.android.overlay.pixelconfig2021
+package:com.google.android.settings.overlay.pixelvpnconfig
+package:com.google.android.apps.translate
+package:com.shannon.imsservice
+package:com.google.mainline.adservices
+package:com.google.android.calculator
+package:com.allegion.stingray.qa
+package:com.android.devicediagnostics
+package:com.android.internal.display.cutout.emulation.avoidAppsInCutout
+package:com.android.hotwordenrollment.okgoogle
+package:com.google.euiccpixel.overlay.zuma
+package:com.android.qns
+package:com.google.android.factoryota
+package:com.google.android.apps.wallpaper
+package:com.google.android.federatedcompute
+package:com.android.systemui.clocks.numoverlap
+package:com.temporary.sms.number
+package:com.google.android.webview
+package:com.google.android.sdksandbox
+package:com.google.android.storagemanager
+package:com.android.wallpaperbackup
+package:com.google.android.cellbroadcastservice
+package:com.android.sdm.plugins.diagmon
+package:com.verizon.services
+package:com.android.internal.systemui.navbar.threebutton
+package:com.android.egg
+package:com.android.localtransport
+package:com.allegion.pureaccess.mfr
+package:android
+package:com.google.android.overlay.pixelconfig2019
+package:com.google.android.pixelsystemservice
+package:com.google.android.overlay.pixelconfig2018
+package:com.google.android.virtualmachine.res
+package:com.android.settings.shiba
+package:com.google.android.pixelnfc
+package:com.android.providers.settings.auto_generated_rro_product__
+package:com.android.hotwordenrollment.xgoogle
+package:com.google.android.soundpicker
+package:com.android.settings.auto_generated_rro_vendor__
+package:com.android.internal.display.cutout.emulation.noCutout
+package:com.google.android.packageinstaller
+package:com.android.se
+package:com.android.pacprocessor
+package:com.coffye.mstome
+package:com.android.providers.media.overlay.pixel
+package:com.google.android.tetheringentitlement
+package:com.google.android.safetycenter.resources
+package:com.google.android.settings.future.biometrics.faceenroll
+package:com.google.android.apps.youtube.music
+package:com.android.stk
+package:com.android.internal.display.cutout.emulation.hole
+package:com.android.settings
+package:com.android.bips
+package:com.google.android.partnersetup
+package:com.android.internal.systemui.navbar.gestural_narrow_back
+package:com.android.internal.display.cutout.emulation.tall
+package:com.google.android.networkstack.tethering
+package:com.google.android.apps.gcs
+package:com.android.sdm.plugins.connmo
+package:com.google.android.projection.gearhead
+package:com.android.cameraextensions
+package:com.android.safetyregulatoryinfo
+package:com.google.android.odad
+package:com.android.internal.systemui.navbar.gestural_wide_back
+package:com.allegion.accesssdk
+package:com.google.android.apps.carrier.carrierwifi
+package:com.android.traceur.auto_generated_rro_vendor__
+package:com.shannon.rcsservice
+package:com.google.android.videos
+package:com.google.android.ext.shared
+package:com.google.android.feedback
+package:com.fitbit.FitbitMobile
+package:com.android.chrome
+package:com.google.android.overlay.trafficlightfaceoverlay
+package:com.google.android.apps.maps
+package:com.google.android.apps.camera.services
+package:com.google.android.apps.nbu.paisa.user
+package:com.google.android.apps.chromecast.app
+package:com.google.android.wifi.resources.pixel
+package:com.google.android.as
+package:android.auto_generated_rro_product__
+package:com.android.musicfx
+package:android.auto_generated_characteristics_rro
+package:com.android.internal.systemui.navbar.transparent
+package:com.android.server.telecom.auto_generated_rro_product__
+package:com.google.android.inputmethod.latin
+package:com.google.android.accessibility.soundamplifier
+package:com.allegionengage.dcs.quickstart
+package:com.google.android.apps.carrier.log
+package:com.google.android.apps.weather
+package:com.google.android.overlay.udfpsoverlay
+package:com.google.android.marvin.talkback
+package:com.google.android.systemui.gxoverlay
+package:com.android.nfc.overlay
+package:com.google.android.uwb.resources
+package:com.android.providers.downloads.ui
+package:com.google.android.wifi.resources
+package:com.android.ons
+package:com.google.android.GoogleCamera
+package:com.google.android.healthconnect.controller
+package:com.android.intentresolver
+package:com.google.android.apps.docs
+package:com.google.android.contactkeys
+package:com.android.phone.auto_generated_rro_vendor__
+package:com.android.certinstaller
+package:com.google.android.setupwizard
+package:com.google.android.apps.safetyhub
+package:com.google.android.apps.retaildemo.preload
+package:com.google.android.apps.recorder
+package:com.google.android.apps.restore
+package:com.google.android.systemui.overlay.pixelbatteryhealthconfig
+package:com.android.systemui.clocks.growth
+package:com.android.simappdialog
+package:com.android.providers.telephony
+package:com.android.wallpaper.livepicker
+package:com.google.android.carriersetup
+package:com.android.systemui.clocks.calligraphy
+package:com.google.android.apps.pixel.dcservice
+package:com.google.android.uvexposurereporter
+package:io.appium.uiautomator2.server.test
+package:com.google.android.connectivity.resources.overlay
+package:com.android.internal.display.cutout.emulation.waterfall
+package:com.android.settings.auto_generated_rro_product__
+package:com.google.android.rkpdapp
+package:com.wt.apkinfo
+package:com.allegion.sdkdemo
+package:com.android.providers.settings
+package:com.google.android.pixel.setupwizard
+package:com.android.phone
+package:com.android.internal.systemui.navbar.gestural_extra_wide_back
+package:com.google.android.apps.subscriptions.red
+package:com.google.android.overlay.pixelconfig2019midyear
+package:com.google.android.flipendo.auto_generated_rro_product__
+package:com.google.android.apps.work.oobconfig
+package:com.android.traceur
+package:com.android.systemui.clocks.inflate
+package:com.google.android.as.oss
+package:com.google.android.apps.messaging
+package:com.google.android.apps.diagnosticstool
+package:com.google.android.repairmode
+package:com.google.android.apps.wearables.maestro.companion
+package:com.android.location.fused
+package:com.android.vpndialogs
+package:com.samsung.slsi.telephony.oemril
+package:com.android.cellbroadcastreceiver
+package:com.android.systemui.plugin.globalactions.wallet
+package:com.google.android.apps.docs.editors.docs
+package:com.google.android.tts
+package:com.google.android.googlequicksearchbox
+package:com.google.android.turboadapter
+package:com.google.android.modulemetadata
+package:com.google.RilConfigService
+package:com.android.phone.auto_generated_rro_product__
+package:com.google.android.documentsui.theme.pixel
+package:com.google.android.apps.work.clouddpc
+package:com.android.systemui.accessibility.accessibilitymenu.auto_generated_rro_product__
+package:com.android.htmlviewer
+package:com.android.vending
+package:com.google.omadm.trigger
+package:com.android.omadm.service.auto_generated_rro_product__
+package:com.google.euiccpixel.permissions
+package:com.google.android.ext.services
+package:com.google.android.configupdater
+package:com.android.sdm.plugins.dcmo
+package:com.google.android.apps.turbo
+package:com.google.android.compos.payload
+package:com.google.android.aicore
+package:com.verizon.llkagent
+package:com.google.android.gms.supervision
+package:com.android.providers.userdictionary
+package:com.android.providers.contactkeys
+package:com.google.android.server.deviceconfig.resources
+package:com.google.android.apps.wear.companion
+package:com.android.cts.ctsshim
+package:com.google.android.apps.photos
+package:com.android.bluetooth
+package:com.android.cellbroadcastservice.overlay.pixel
+package:com.google.android.markup
+package:com.google.android.apps.scone
+package:com.google.android.apps.helprtc
+package:com.google.android.wfcactivation
+package:com.android.settings.overlay.shiba
+package:com.google.android.connectivitythermalpowermanager
+package:com.android.internal.display.cutout.emulation.corner
+package:com.google.android.gms
+package:com.customermobile.preload.vzw
+package:com.android.printspooler
+package:com.android.pixeldisplayservice
+package:com.android.systemui.auto_generated_rro_product__
+package:com.google.android.apps.dreamliner
+package:com.google.android.storagemanager.auto_generated_rro_product__
+package:com.google.android.apps.setupwizard.searchselector
+package:com.android.providers.partnerbookmarks
+package:com.android.soundpicker
+package:com.google.pixel.camera.services
+package:com.google.mainline.telemetry
+package:com.google.android.apps.pixel.support
+package:com.google.ambient.streaming
+package:com.google.android.euicc
+package:com.google.android.googlequicksearchbox.nga_resources
+package:com.google.android.carrier
+package:com.android.dynsystem
+package:com.android.angle
+package:com.android.providers.telephony.auto_generated_characteristics_rro
+package:com.google.android.bluetooth
+package:com.google.android.iwlan
+package:com.android.safetyregulatoryinfo.auto_generated_rro_product__
+package:com.android.providers.telephony.auto_generated_rro_product__
+package:com.google.android.overlay.devicelockcontroller
+package:com.android.nfc.auto_generated_rro_vendor__
+package:com.google.android.connectivity.resources
+package:com.android.bips.auto_generated_rro_product__
+package:com.google.android.youtube
+package:com.android.simappdialog.auto_generated_rro_product__
+package:com.android.telephony.imsmedia
+package:com.android.externalstorage
+package:com.android.server.telecom' does not contain 'com.allegionengage.dcsdemo'</msg>
+<status status="FAIL" starttime="20250325 15:26:54.575" endtime="20250325 15:26:54.581"/>
+</kw>
+<msg timestamp="20250325 15:26:54.581" level="INFO">${app_installed} = False</msg>
+<status status="PASS" starttime="20250325 15:26:54.575" endtime="20250325 15:26:54.581"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>App Status: ${app_installed}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:26:54.581" endtime="20250325 15:26:54.581"/>
+</kw>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>start-server</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:54.581" level="INFO">Starting process:
+adb start-server</msg>
+<msg timestamp="20250325 15:26:54.591" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:54.670" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:54.581" endtime="20250325 15:26:54.670"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Run Process</arg>
+<arg>adb</arg>
+<arg>install</arg>
+<arg>${apk_path}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>install</arg>
+<arg>${apk_path}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20250325 15:26:54.670" level="INFO">Starting process:
+adb install C:/Users/ckumar2/PycharmProjects/RobotAPI/Automation/APKs/DCSDemoApp-BETA-debug.apk</msg>
+<msg timestamp="20250325 15:26:54.687" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20250325 15:26:56.474" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20250325 15:26:54.670" endtime="20250325 15:26:56.474"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:54.670" endtime="20250325 15:26:56.474"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Sleep</arg>
+<arg>10</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Sleep" library="BuiltIn">
+<arg>10</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250325 15:27:06.489" level="INFO">Slept 10 seconds</msg>
+<status status="PASS" starttime="20250325 15:26:56.474" endtime="20250325 15:27:06.489"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:56.474" endtime="20250325 15:27:06.489"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>not ${app_installed}</arg>
+<arg>Log To Console</arg>
+<arg>App Installed Successfully</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Log To Console" library="BuiltIn">
+<arg>App Installed Successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:27:06.489" endtime="20250325 15:27:06.489"/>
+</kw>
+<status status="PASS" starttime="20250325 15:27:06.489" endtime="20250325 15:27:06.489"/>
+</kw>
+<status status="PASS" starttime="20250325 15:26:54.370" endtime="20250325 15:27:06.489"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>${APPIUM SERVER URL}</arg>
+<arg>alias=Engage</arg>
+<arg>automationName=${ANDROID_AUTOMATION_NAME}</arg>
+<arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>appPackage=${package_DCS}</arg>
+<arg>appActivity=${package_DCS}.MainActivity</arg>
+<arg>appWaitActivity=*</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://appium.io/docs/en/2.1/cli/args/
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20250325 15:27:06.489" endtime="20250325 15:27:16.375"/>
+</kw>
+<kw name="Start Activity" library="AppiumLibrary">
+<arg>${package_SMA}</arg>
+<arg>${package_SMA}.MainActivity</arg>
+<doc>Opens an arbitrary activity during a test. If the activity belongs to
+another application, that application is started and the activity is opened.</doc>
+<status status="PASS" starttime="20250325 15:27:16.376" endtime="20250325 15:27:17.908"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250325 15:27:19.912" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20250325 15:27:17.908" endtime="20250325 15:27:19.912"/>
+</kw>
+<kw name="Verify user should be on home page">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Verifying HomePage</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250325 15:27:19.913" endtime="20250325 15:27:19.913"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>xpath=//android.widget.TextView[@text="Home"]</arg>
+<arg>timeout=${WAIT_TIME_OUT}</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<msg timestamp="20250325 15:27:20.423" level="INFO">xpath criteria: //android.widget.TextView[@text="Home"]</msg>
+<status status="PASS" starttime="20250325 15:27:19.913" endtime="20250325 15:27:20.423"/>
+</kw>
+<status status="PASS" starttime="20250325 15:27:19.912" endtime="20250325 15:27:20.423"/>
+</kw>
+<kw name="Start Activity" library="AppiumLibrary">
+<arg>${package_DCS}</arg>
+<arg>${package_DCS}.MainActivity</arg>
+<doc>Opens an arbitrary activity during a test. If the activity belongs to
+another application, that application is started and the activity is opened.</doc>
+<status status="PASS" starttime="20250325 15:27:20.423" endtime="20250325 15:27:21.776"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250325 15:27:23.779" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20250325 15:27:21.776" endtime="20250325 15:27:23.779"/>
+</kw>
+<kw name="Switch Application" library="AppiumLibrary">
+<arg>${webapp}</arg>
+<doc>Switches the active application by index or alias.</doc>
+<status status="PASS" starttime="20250325 15:27:23.780" endtime="20250325 15:27:23.780"/>
+</kw>
+<kw name="Get Title" library="SeleniumLibrary">
+<doc>Returns the title of the current page.</doc>
+<status status="PASS" starttime="20250325 15:27:23.780" endtime="20250325 15:27:23.795"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20250325 15:27:23.795" endtime="20250325 15:27:26.124"/>
+</kw>
+<doc>Test to Launch Web Browser and Mobile apps</doc>
+<status status="PASS" starttime="20250325 15:26:26.123" endtime="20250325 15:27:26.124"/>
+</test>
+<kw name="Close All Applications" library="AppiumLibrary" type="TEARDOWN">
+<doc>Closes all open applications.</doc>
+<status status="PASS" starttime="20250325 15:27:26.124" endtime="20250325 15:27:27.899"/>
+</kw>
+<doc>Test Mobile App</doc>
+<status status="PASS" starttime="20250325 15:26:25.805" endtime="20250325 15:27:27.899"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="testWebAndMobile">testWebAndMobile</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,2 @@
+robot -d ../Reports .\test.robot
+Appium server -pa /wd/hub --allow-cors
